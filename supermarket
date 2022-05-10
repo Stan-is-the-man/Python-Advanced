@@ -1,0 +1,12 @@
+from collections import deque
+customer = input()
+customer_queue = deque()
+
+while customer != "End":
+    if customer == "Paid":
+        while customer_queue:
+            print(customer_queue.popleft())
+    else:
+        customer_queue.append(customer)
+    customer = input()
+print(f"{len(customer_queue)} people remaining.")
