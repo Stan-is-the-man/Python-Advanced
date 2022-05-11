@@ -1,0 +1,11 @@
+clothes = [int(x) for x in input().split()]
+rack_capacity = int(input())
+number_of_racks = 1
+current_rack_capacity = rack_capacity
+while clothes:
+    if current_rack_capacity - clothes[-1] >= 0:
+        current_rack_capacity -= clothes.pop()
+    else:
+        number_of_racks += 1
+        current_rack_capacity = rack_capacity
+print(number_of_racks)
