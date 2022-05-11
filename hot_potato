@@ -1,0 +1,8 @@
+from collections import deque
+
+que_of_children = deque(input().split())
+n = int(input())
+while len(que_of_children) > 1:
+    que_of_children.rotate(- n)
+    print(f"Removed {que_of_children.pop()}")
+print(f"Last is {que_of_children[0]}")
