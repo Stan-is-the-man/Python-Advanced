@@ -1,0 +1,20 @@
+my_stack = []
+reversed_final_stack = []
+n = int(input())
+
+for x in range(n):
+    command = input()
+    cmd_split = command.split()
+    number_command = int(cmd_split[0])
+    if number_command == 1:
+        push_number = int(cmd_split[1])
+        my_stack.append(push_number)
+    elif number_command == 2 and len(my_stack) > 0:
+        my_stack.pop()
+    elif number_command == 3 and len(my_stack) > 0:
+        print(max(my_stack))
+    elif number_command == 4 and len(my_stack) > 0:
+        print(min(my_stack))
+while my_stack:
+    reversed_final_stack.append(str(my_stack.pop()))
+print(", ".join(reversed_final_stack))
