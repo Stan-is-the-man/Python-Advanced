@@ -1,0 +1,43 @@
+from collections import deque
+
+time_to_enter = int(input())
+exit_time = int(input())
+total_exit_time = time_to_enter + exit_time
+line_of_cars = deque()
+entered_cars = deque()
+total_passed_cars = 0
+everyone_is_safe = True
+hit_car = ''
+hit_symbol = ''
+command = input()
+while command != "END":
+    if command == "green":
+        current_time_to_enter = time_to_enter
+        current_time_to_exit = total_exit_time
+        while line_of_cars and current_time_to_enter > 0:
+            entering_car = line_of_cars.popleft()
+            entered_cars.append(entering_car)
+            current_time_to_enter -= len(entering_car)
+        while entered_cars:
+            exiting_car = entered_cars.popleft()
+            if current_time_to_exit >= len(exiting_car):
+                current_time_to_exit -= len(exiting_car)
+                total_passed_cars += 1
+            else:
+                current_time_to_exit -= len(exiting_car)
+                hit_car = exiting_car
+                hit_symbol = exiting_car[current_time_to_exit]
+                everyone_is_safe = False
+                break
+        if everyone_is_safe == False:
+            break
+
+    else:
+        line_of_cars.append(command)
+    command = input()
+if everyone_is_safe and len(entered_cars) == 0:
+    print("Everyone is safe.")
+    print(f"{total_passed_cars} total cars passed the crossroads.")
+else:
+    print("A crash happened!")
+    print(f"{hit_car} was hit at {hit_symbol}.")
