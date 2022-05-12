@@ -1,0 +1,20 @@
+from collections import deque
+
+n = int(input())
+gas_stations = deque()
+index_of_gas_station = 0
+for _ in range(n):
+    data = [int(x) for x in input().split()]
+    gas_stations.append(data)
+
+current_petrol_in_truck = 0
+for every_gas_station in range(n):
+    for fuel, distance in gas_stations:
+        if current_petrol_in_truck + fuel >= distance:
+            current_petrol_in_truck += (fuel - distance)
+
+        else:
+            gas_stations.append(gas_stations.popleft())
+            index_of_gas_station += 1
+            break
+print(index_of_gas_station)
