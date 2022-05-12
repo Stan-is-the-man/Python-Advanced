@@ -1,0 +1,24 @@
+from collections import deque
+
+n = int(input())
+gas_stations = deque()
+for _ in range(n):
+    data = [int(x) for x in input().split()]
+    gas_stations.append(data)
+
+for attempt in range(n):
+    tank = 0
+    failed = False
+    for fuel, distance in gas_stations:
+        tank += fuel
+        if distance > tank:
+            failed = True
+            break
+        else:
+            tank -= distance
+    if failed:
+        gas_stations.append(gas_stations.popleft())
+    else:
+        print(attempt)
+        break
+
