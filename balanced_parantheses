@@ -1,0 +1,21 @@
+parentheses = input()
+stack = []
+opening = '({['
+balanced = True
+for symbol in parentheses:
+    if symbol in opening:
+        stack.append(symbol)
+    elif len(stack) == 0:
+        balanced = False
+        break
+    else:
+        if (stack[-1] + symbol == "()" or stack[-1] + symbol == "{}" or stack[-1] + symbol == "[]") and stack:
+            stack.pop()
+        else:
+            balanced = False
+            break
+if balanced:
+    print("YES")
+else:
+    print("NO")
+
