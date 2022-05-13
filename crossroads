@@ -9,6 +9,7 @@ total_passed_cars = 0
 everyone_is_safe = True
 hit_car = ''
 hit_symbol = ''
+
 command = input()
 while command != "END":
     if command == "green":
@@ -35,9 +36,11 @@ while command != "END":
     else:
         line_of_cars.append(command)
     command = input()
+    
 if everyone_is_safe and len(entered_cars) == 0:
     print("Everyone is safe.")
     print(f"{total_passed_cars} total cars passed the crossroads.")
 else:
     print("A crash happened!")
     print(f"{hit_car} was hit at {hit_symbol}.")
+    
