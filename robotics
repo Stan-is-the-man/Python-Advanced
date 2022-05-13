@@ -1,0 +1,38 @@
+from collections import deque
+
+
+def convert_sec_to_str(seconds):
+    hours = seconds // (60 * 60)
+    seconds %= (60 * 60)
+    minutes = seconds // 60
+    seconds %= 60
+    return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+
+
+data = input().split(";")
+processing_time_dict_by_robot = {}
+products = deque()
+blocked_time_by_robot = {}
+
+for every_robot in data:
+    robot, processing_secs = every_robot.split("-")
+    processing_time_dict_by_robot[robot] = int(processing_secs)
+    blocked_time_by_robot[robot] = 0
+time = [int(x) for x in input().split(":")]
+start_time = (time[0] * 60 * 60) + time[1] * 60 + time[2] * 60
+command = input()
+while command != "End":
+    products.append(command)
+    command = input()
+
+while products:
+    start_time += 1
+    item = products.popleft()
+    for name, busy_till in blocked_time_by_robot.items():
+        if start_time >= busy_till:
+            blocked_time_by_robot[name] = start_time + processing_time_dict_by_robot[name]
+            print(f"{name} - {item} [{convert_sec_to_str(start_time)}]")
+            break
+
+    else:
+        products.append(item)
