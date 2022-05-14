@@ -1,0 +1,14 @@
+n = int(input())
+dict_of_students = {}
+
+for _ in range(n):
+    name, grade = input().split()
+    if name not in dict_of_students:
+        dict_of_students[name] = []
+    dict_of_students[name].append(float(grade))
+
+for student, grade in dict_of_students.items():
+    str_grade = [f'{x:.2f}' for x in grade]
+    avg_grade = sum(grade) / len(grade)
+    print(f"{student} -> {' '.join(str_grade)} (avg: {avg_grade:.2f})")
+
