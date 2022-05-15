@@ -1,0 +1,13 @@
+n = int(input())
+res_number = set()
+for _ in range(n):
+    number = input()
+    res_number.add(number)
+
+coming_guest = input()
+while coming_guest != "END":
+    if coming_guest in res_number:
+        res_number.remove(coming_guest)
+    coming_guest = input()
+print(len(res_number))
+print('\n'.join(sorted(res_number)))
