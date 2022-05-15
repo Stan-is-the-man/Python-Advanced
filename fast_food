@@ -12,6 +12,7 @@ while orders:
     else:
         orders_are_complete = False
         break
+        
 if orders_are_complete:
     print("Orders complete")
 else:
