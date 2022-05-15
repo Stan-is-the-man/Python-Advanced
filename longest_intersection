@@ -1,0 +1,16 @@
+def make_a_set(info):
+    start, end = [int(x) for x in info.split(",")]
+    return set(range(start, end + 1))
+
+
+longest_range = set()
+n = int(input())
+
+for _ in range(n):
+    input_range = input().split("-")
+    range_1 = make_a_set(input_range[0])
+    range_2 = make_a_set(input_range[1])
+    result = range_1.intersection(range_2)
+    if len(result) > len(longest_range):
+        longest_range = result
+print(f"Longest intersection is [{', '.join([str(x) for x in longest_range])}] with length {len(longest_range)}")
