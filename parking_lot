@@ -12,4 +12,3 @@ if car_in:
     print("\n".join(car_in))
 else:
     print("Parking Lot is Empty")
-
