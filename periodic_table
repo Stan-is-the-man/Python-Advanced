@@ -1,0 +1,6 @@
+n = int(input())
+unique_elements = set()
+for _ in range(n):
+    curr_set = set(input().split())
+    unique_elements = unique_elements.union(curr_set)
+print(*unique_elements, sep="\n")
