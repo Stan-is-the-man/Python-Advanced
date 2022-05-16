@@ -1,0 +1,9 @@
+line = input()
+my_dict = {}
+for el in line:
+    if el not in my_dict:
+        my_dict[el] = 1
+    else:
+        my_dict[el] += 1
+for symbol, count in sorted(my_dict.items()):
+    print(f"{symbol}: {count} time/s")
