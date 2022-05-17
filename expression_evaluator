@@ -1,0 +1,33 @@
+from collections import deque
+import math
+
+line = input().split()
+main = deque()
+for element in line:
+    if element.lstrip('-').isdigit():
+        main.append(int(element))
+    else:
+        # or.....
+        # a = popleft()
+        # b = popleft()
+        if element == "-":
+            while len(main) > 1:
+                a = main.popleft()
+                main[0] = a - main[0]
+        elif element == "+":
+            while len(main) > 1:
+                a = main.popleft()
+                main[0] = a + main[0]
+                # c = a + b
+
+        elif element == "*":
+            while len(main) > 1:
+                a = main.popleft()
+                main[0] = a * main[0]
+        elif element == "/":
+            while len(main) > 1:
+                a = main.popleft()
+                main[0] = math.floor(a / main[0])
+
+        # main.appendleft(c)
+print(*main)
