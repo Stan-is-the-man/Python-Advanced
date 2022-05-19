@@ -1,0 +1,45 @@
+from collections import deque
+
+line = deque(input().split())
+main = ["red", "yellow", "blue"]
+secondary = ["orange", "purple", "green"]
+found = []
+revised = []
+
+while line:
+    if len(line) == 1:
+        the_last_one = line.pop()
+        if the_last_one in main or the_last_one in secondary:
+            found.append(the_last_one)
+    else:
+        first = line.popleft()
+        last = line.pop()
+        result_1 = first + last
+        result_2 = last + first
+        if result_1 in main or result_1 in secondary:
+            found.append(result_1)
+        elif result_2 in main or result_2 in secondary:
+            found.append(result_2)
+        else:
+            first = first[:-1]
+            last = last[:-1]
+            if first:
+                if len(line) % 2 == 0:
+                    line.insert((len(line) // 2), first)
+                else:
+                    line.insert((len(line) // 2) + 1, first)
+            if last:
+                if len(line) % 2 == 0:
+                    line.insert((len(line) // 2), last)
+                else:
+                    line.insert((len(line) // 2) + 1, last)
+for color in found:
+    if color == 'orange' and ("red" and "yellow" in found):
+        revised.append(color)
+    elif color == 'purple' and ("red" and "blue" in found):
+        revised.append(color)
+    elif color == 'green' and ("yellow" and "blue" in found):
+        revised.append(color)
+    else:
+        revised.append(color)
+print(revised)
