@@ -15,6 +15,7 @@ for x in range(n):
         print(max(my_stack))
     elif number_command == 4 and len(my_stack) > 0:
         print(min(my_stack))
+        
 while my_stack:
     reversed_final_stack.append(str(my_stack.pop()))
 print(", ".join(reversed_final_stack))
