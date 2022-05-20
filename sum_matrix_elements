@@ -1,0 +1,9 @@
+rows, columns = [int(x) for x in input().split(", ")]
+matrix = []
+sums = []
+for _ in range(rows):
+    nums = [int(x) for x in input().split(", ")]
+    matrix.append(nums)
+    sums.append(sum(nums))
+print(sum(sums))
+print(matrix)
