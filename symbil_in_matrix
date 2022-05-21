@@ -1,0 +1,17 @@
+n = int(input())
+matrix = []
+for _ in range(n):
+    matrix.append(list(input()))
+symbol = input()
+not_found = True
+for row in range(n):
+    for col in range(n):
+        if matrix[row][col] == symbol:
+            print(f"({row}, {col})")
+            not_found = False
+            break
+
+    if not not_found:
+        break
+if not_found:
+    print(f"{symbol} does not occur in the matrix")
