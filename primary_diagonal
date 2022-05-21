@@ -1,0 +1,8 @@
+n = int(input())
+matrix = []
+for _ in range(n):
+    matrix.append([int(x) for x in input().split()])
+sum_of_diagonal = 0
+for position in range(n):
+    sum_of_diagonal += matrix[position][position]
+print(sum_of_diagonal)
