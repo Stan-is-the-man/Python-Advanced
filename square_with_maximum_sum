@@ -1,0 +1,19 @@
+import sys
+
+rows, cols = [int(x) for x in input().split(", ")]
+matrix = []
+biggest_sum = - sys.maxsize
+sub_m = []
+
+for _ in range(rows):
+    matrix.append([int(x) for x in input().split(", ")])
+for row in range(rows - 1):
+    for col in range(cols - 1):
+        sub_matrix = [matrix[row][col], matrix[row][col + 1], matrix[row + 1][col], matrix[row + 1][col + 1]]
+        if sum(sub_matrix) > biggest_sum:
+            biggest_sum = sum(sub_matrix)
+            sub_m = sub_matrix
+
+print(sub_m[0], sub_m[1])
+print(sub_m[2], sub_m[3])
+print(biggest_sum)
