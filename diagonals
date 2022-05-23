@@ -1,0 +1,12 @@
+size = int(input())
+matrix = []
+primary_diagonal = []
+secondary_diagonal = []
+for index in range(size):
+    line_of_input = [int(x) for x in input().split(", ")]
+    primary_diagonal.append(line_of_input[index])
+    secondary_diagonal.append(line_of_input[size - 1 - index])
+
+
+print(f'Primary diagonal: {", ".join(str(x) for x in primary_diagonal)}. Sum: {sum(primary_diagonal)}')
+print(f'Secondary diagonal: {", ".join(str(x) for x in secondary_diagonal)}. Sum: {sum(secondary_diagonal)}')
