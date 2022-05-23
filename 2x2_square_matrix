@@ -1,0 +1,15 @@
+def is_valid(row, col, the_matrix):
+    return the_matrix[row][col] == the_matrix[row][col + 1] == the_matrix[row + 1][col] == the_matrix[row + 1][col + 1]
+
+
+rows, cols = [int(x) for x in input().split()]
+matrix = []
+
+for _ in range(rows):
+    matrix.append(input().split())
+quantity_of_2x2 = 0
+for current_row in range(rows - 1):
+    for current_col in range(cols - 1):
+        if is_valid(current_row, current_col, matrix):
+            quantity_of_2x2 += 1
+print(quantity_of_2x2)
