@@ -1,0 +1,28 @@
+import sys
+
+
+def max_sum(rs, cs, mx):
+    curr_sum = mx[rs][cs] + mx[rs][cs + 1] + mx[rs][cs + 2] \
+               + mx[rs + 1][cs] + mx[rs + 1][cs + 1] + mx[rs + 1][cs + 2] \
+               + mx[rs + 2][cs] + mx[rs + 2][cs + 1] + mx[rs + 2][cs + 2]
+    return curr_sum
+
+
+rows, cols = [int(x) for x in input().split()]
+matrix = []
+maximal = - sys.maxsize
+best_row = 0
+best_col = 0
+for _ in range(rows):
+    matrix.append([int(x) for x in input().split()])
+for current_row in range(rows - 2):
+    for current_col in range(cols - 2):
+        current_sum = max_sum(current_row, current_col, matrix)
+        if current_sum > maximal:
+            maximal = current_sum
+            best_row = current_row
+            best_col = current_col
+print(f"Sum = {maximal}")
+print(f"{matrix[best_row][best_col]} {matrix[best_row][best_col + 1]} {matrix[best_row][best_col + 2]}")
+print(f"{matrix[best_row + 1][best_col]} {matrix[best_row + 1][best_col + 1]} {matrix[best_row + 1][best_col + 2]}")
+print(f"{matrix[best_row + 2][best_col]} {matrix[best_row + 2][best_col + 1]} {matrix[best_row + 2][best_col + 2]}")
