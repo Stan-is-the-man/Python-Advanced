@@ -1,0 +1,40 @@
+rows = int(input())
+matrix = []
+for _ in range(rows):
+    matrix.append([int(x) for x in input().split()])
+coordinates = input().split()
+alive_cells = []
+for current_position in coordinates:
+    split = current_position.split(",")
+    row = int(split[0])
+    col = int(split[1])
+    if matrix[row][col] > 0 and 0 <= row < rows and 0 <= col < rows:
+        bomb_power = matrix[row][col]
+        matrix[row][col] = 0
+        if 0 <= row - 1 < rows and 0 <= col - 1 < rows and matrix[row - 1][col - 1] > 0:
+            matrix[row - 1][col - 1] -= bomb_power
+        if 0 <= row - 1 < rows and 0 <= col < rows and matrix[row - 1][col] > 0:
+            matrix[row - 1][col] -= bomb_power
+        if 0 <= row - 1 < rows and 0 <= col + 1 < rows and matrix[row - 1][col + 1] > 0:
+            matrix[row - 1][col + 1] -= bomb_power
+        if 0 <= row + 1 < rows and 0 <= col - 1 < rows and matrix[row + 1][col - 1] > 0:
+            matrix[row + 1][col - 1] -= bomb_power
+        if 0 <= row + 1 < rows and 0 <= col < rows and matrix[row + 1][col] > 0:
+            matrix[row + 1][col] -= bomb_power
+        if 0 <= row + 1 < rows and 0 <= col + 1 < rows and matrix[row + 1][col + 1] > 0:
+            matrix[row + 1][col + 1] -= bomb_power
+        if 0 <= row < rows and 0 <= col - 1 < rows and matrix[row][col - 1] > 0:
+            matrix[row][col - 1] -= bomb_power
+        if 0 <= row < rows and 0 <= col + 1 < rows and matrix[row][col + 1] > 0:
+            matrix[row][col + 1] -= bomb_power
+
+for x in range(rows):
+    for z in range(rows):
+        if matrix[x][z] > 0:
+            alive_cells.append(matrix[x][z])
+print(f"Alive cells: {len(alive_cells)}")
+print(f"Sum: {sum(alive_cells)}")
+for x in range(rows):
+    for z in range(rows):
+        print(matrix[x][z], end=" ")
+    print()
