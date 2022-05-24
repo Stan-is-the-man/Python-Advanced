@@ -1,0 +1,14 @@
+from collections import deque
+
+rows, cols = [int(x) for x in input().split()]
+word = deque(input())
+for row in range(rows):
+    current = ''
+    for col in range(cols):
+        current += word[0]
+        word.append(word.popleft())
+    if row % 2 == 0:
+        print(current, end='')
+    else:
+        print(current[::-1], end='')
+    print()
