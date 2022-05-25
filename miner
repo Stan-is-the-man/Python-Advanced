@@ -1,0 +1,70 @@
+size = int(input())
+movements = input().split()
+matrix = []
+coals = 0
+game_is_over = False
+for _ in range(size):
+    matrix.append(input().split())
+
+start_row = 0
+start_col = 0
+current_row = 0
+current_col = 0
+for row in range(size):
+    for col in range(size):
+        if matrix[row][col] == "s":
+            start_row = row
+            start_col = col
+        if matrix[row][col] == "c":
+            coals += 1
+for action in movements:
+    if action == 'up' and 0 <= start_row - 1 < size and 0 <= start_col < size:
+        current_symbol = matrix[start_row - 1][start_col]
+        current_row = start_row - 1
+        current_col = start_col
+        if current_symbol == "c":
+            coals -= 1
+            matrix[start_row - 1][start_col] = "*"
+        elif current_symbol == "e":
+            game_is_over = True
+            break
+    if action == 'down' and 0 <= start_row + 1 < size and 0 <= start_col < size:
+        current_symbol = matrix[start_row + 1][start_col]
+        current_row = start_row + 1
+        current_col = start_col
+        if current_symbol == "c":
+            coals -= 1
+            matrix[start_row + 1][start_col] = "*"
+        elif current_symbol == "e":
+            game_is_over = True
+            break
+    if action == 'left' and 0 <= start_row < size and 0 <= start_col - 1 < size:
+        current_symbol = matrix[start_row][start_col - 1]
+        current_row = start_row
+        current_col = start_col - 1
+        if current_symbol == "c":
+            coals -= 1
+            matrix[start_row][start_col - 1] = "*"
+        elif current_symbol == "e":
+            game_is_over = True
+            break
+    if action == 'right' and 0 <= start_row < size and 0 <= start_col + 1 < size:
+        current_symbol = matrix[start_row][start_col + 1]
+        current_row = start_row
+        current_col = start_col + 1
+        if current_symbol == "c":
+            coals -= 1
+            matrix[start_row][start_col + 1] = "*"
+        elif current_symbol == "e":
+            game_is_over = True
+            break
+    start_row = current_row
+    start_col = current_col
+
+if game_is_over:
+    print(f"Game over! ({current_row}, {current_col})")
+
+elif coals > 0:
+    print(f"{coals} pieces of coal left. ({current_row}, {current_col})")
+else:
+    print(f"You collected all coal! ({current_row}, {current_col})")
