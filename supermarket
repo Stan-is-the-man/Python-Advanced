@@ -9,4 +9,5 @@ while customer != "End":
     else:
         customer_queue.append(customer)
     customer = input()
+    
 print(f"{len(customer_queue)} people remaining.")
