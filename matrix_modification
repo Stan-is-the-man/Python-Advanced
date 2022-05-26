@@ -1,0 +1,20 @@
+size = int(input())
+matrix = []
+for _ in range(size):
+    matrix.append([int(x) for x in input().split()])
+while True:
+    command = input()
+    if command == "END":
+        break
+    cmd_split = command.split()
+    action = cmd_split[0]
+    row, col, value = [int(x) for x in cmd_split[1:]]
+    if row < 0 or col < 0 or col >= size or row >= size:
+        print("Invalid coordinates")
+        continue
+    if action == "Add":
+        matrix[row][col] += value
+    else:
+        matrix[row][col] -= value
+for row in matrix:
+    print(*row)
