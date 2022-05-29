@@ -1,0 +1,48 @@
+def go_to_next_position(direction, row, col):
+    if direction == "up":
+        return row - 1, col
+    if direction == "down":
+        return row + 1, col
+    if direction == "left":
+        return row, col - 1
+    if direction == "right":
+        return row, col + 1
+
+
+size = int(input())
+matrix = []
+alice_row = 0
+alice_col = 0
+tea_bags = 0
+for row in range(size):
+    element = input().split()
+    matrix.append(element)
+    for col in range(size):
+        if matrix[row][col] == "A":
+            alice_row = row
+            alice_col = col
+
+while tea_bags < 10:
+    command = input()
+
+    peek_next_row, peek_next_col = go_to_next_position(command, alice_row, alice_col)
+
+    if peek_next_row < 0 or peek_next_col < 0 or peek_next_row >= size or peek_next_col >= size:
+        print("Alice didn't make it to the tea party.")
+        matrix[alice_row][alice_col] = "*"
+        break
+    matrix[alice_row][alice_col] = "*"
+    alice_row, alice_col = peek_next_row, peek_next_col
+    if matrix[alice_row][alice_col] == "." or matrix[alice_row][alice_col] == "*":
+        matrix[alice_row][alice_col] = "*"
+        continue
+    if matrix[alice_row][alice_col] == "R":
+        matrix[alice_row][alice_col] = "*"
+        print("Alice didn't make it to the tea party.")
+        break
+    tea_bags += int(matrix[alice_row][alice_col])
+    matrix[alice_row][alice_col] = "*"
+if tea_bags >= 10:
+    print("She did it! She went to the party.")
+for row in matrix:
+    print(*row, sep=" ")
