@@ -41,6 +41,7 @@ while tea_bags < 10:
         break
     tea_bags += int(matrix[alice_row][alice_col])
     matrix[alice_row][alice_col] = "*"
+    
 if tea_bags >= 10:
     print("She did it! She went to the party.")
 for row in matrix:
