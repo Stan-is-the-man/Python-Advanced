@@ -1,0 +1,66 @@
+def move_to_position(direction, step, row, col):
+    if direction == "right":
+        return row, col + step
+    if direction == "left":
+        return row, col - step
+    if direction == "up":
+        return row - step, col
+    if direction == "down":
+        return row + step, col
+
+
+size = 5
+matrix = []
+shoot_row = 0
+shoot_col = 0
+targets = 0
+shooted_targets = []
+for row in range(5):
+    element = input().split()
+    matrix.append(element)
+    for col in range(5):
+        if matrix[row][col] == 'A':
+            shoot_row = row
+            shoot_col = col
+        if matrix[row][col] == 'x':
+            targets += 1
+
+n = int(input())
+for _ in range(n):
+    if targets == 0:
+        break
+
+    command = input().split()
+    action = command[0]
+    direction = command[1]
+    if action == 'move':
+        step = int(command[2])
+        just_peek_row, just_peek_col = move_to_position(direction, step, shoot_row, shoot_col)
+        if just_peek_row < 0 or just_peek_col < 0 or just_peek_row >= size or just_peek_col >= size:
+            continue
+        if matrix[just_peek_row][just_peek_col] == ".":
+            matrix[shoot_row][shoot_col] = "."
+            shoot_row, shoot_col = just_peek_row, just_peek_col
+            matrix[shoot_row][shoot_col] = "A"
+
+    elif action == 'shoot':
+        current_row, current_col = shoot_row, shoot_col
+        while True:
+            just_peek_row, just_peek_col = move_to_position(direction, 1, current_row, current_col)
+            if just_peek_row < 0 or just_peek_col < 0 or just_peek_row >= size or just_peek_col >= size:
+                break
+            if matrix[just_peek_row][just_peek_col] == '.':
+                current_row, current_col = just_peek_row, just_peek_col
+                continue
+
+            if matrix[just_peek_row][just_peek_col] == 'x':
+                shooted_targets.append([just_peek_row, just_peek_col])
+                matrix[just_peek_row][just_peek_col] = "."
+                targets -= 1
+                break
+if targets == 0:
+    print(f"Training completed! All {len(shooted_targets)} targets hit.")
+if targets > 0:
+    print(f"Training not completed! {targets} targets left.")
+for x in shooted_targets:
+    print(x)
