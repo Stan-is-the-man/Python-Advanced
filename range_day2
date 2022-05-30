@@ -42,7 +42,6 @@ for _ in range(n):
             matrix[shoot_row][shoot_col] = "."
             shoot_row, shoot_col = just_peek_row, just_peek_col
             matrix[shoot_row][shoot_col] = "A"
-
     elif action == 'shoot':
         current_row, current_col = shoot_row, shoot_col
         while True:
