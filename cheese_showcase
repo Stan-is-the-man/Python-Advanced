@@ -1,0 +1,7 @@
+def sorting_cheeses(**cheese_dict):
+    cheese_dict = sorted(cheese_dict.items(), key=lambda x: (-len(x[1]), x[0]))
+    result = ""
+    for cheese, numbers in cheese_dict:
+        result += cheese + "\n"
+        result += "\n".join(str(x) for x in sorted(numbers, reverse=True)) + "\n"
+    return result
