@@ -1,0 +1,11 @@
+def rectangle(length, width):
+    def area(length, width):
+        return width * length
+
+    def perimeter(length, width):
+        return 2 * length + 2 * width
+
+    if isinstance(length, int) and isinstance(width, int) and length > 0 and width > 0:
+        print(f"Rectangle area: {area(length, width)}\nRectangle perimeter: {perimeter(length, width)}")
+    else:
+        return "Enter valid values!"
