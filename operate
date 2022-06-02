@@ -1,0 +1,39 @@
+def operate(operator, *args):
+    def add(*args):
+        return sum(args)
+
+    def subtract(*args):
+        my_sum = args[0]
+        for i in args[1:]:
+            my_sum -= i
+        return my_sum
+
+    def multiply(*args):
+        result = 1
+        for x in args:
+            result *= x
+        return result
+
+    def divide(*args):
+        my_sum = args[0]
+        for i in args[1:]:
+            if i <= 0:
+                return None
+            my_sum /= i
+        return my_sum
+
+    if operator == "+":
+        return add(*args)
+    elif operator == "-":
+        return subtract(*args)
+    elif operator == "*":
+        return multiply(*args)
+    elif operator == "/":
+        return divide(*args)
+    else:
+        return None
+
+
+print(operate("-", 100, 50, 40))
+print(operate("*", 3, 4))
+print(operate("/", 100, 0, 0))
