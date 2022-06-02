@@ -2,6 +2,7 @@ parentheses = input()
 stack = []
 opening = '({['
 balanced = True
+
 for symbol in parentheses:
     if symbol in opening:
         stack.append(symbol)
