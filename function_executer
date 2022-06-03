@@ -1,0 +1,17 @@
+def func_executor(*args):
+    final_result = []
+    for function_itself, functions_parameters in args:
+        current_result = function_itself(*functions_parameters)
+        final_result.append(f"{function_itself.__name__} - {current_result}")
+    return "\n".join(final_result)
+
+
+def sum_numbers(num1, num2):
+    return num1 + num2
+
+
+def multiply_numbers(num1, num2):
+    return num1 * num2
+
+
+print(func_executor((sum_numbers, (1, 2)), (multiply_numbers, (2, 4))))
