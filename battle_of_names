@@ -16,4 +16,5 @@ elif sum(odd_set) > sum(even_set):
     final_set = odd_set.difference(even_set)
 else:
     final_set = odd_set.symmetric_difference(even_set)
+
 print(*final_set, sep=", ")
