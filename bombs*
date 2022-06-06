@@ -34,6 +34,7 @@ for x in range(rows):
             alive_cells.append(matrix[x][z])
 print(f"Alive cells: {len(alive_cells)}")
 print(f"Sum: {sum(alive_cells)}")
+
 for x in range(rows):
     for z in range(rows):
         print(matrix[x][z], end=" ")
