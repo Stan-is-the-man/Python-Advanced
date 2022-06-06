@@ -1,7 +1,6 @@
 numbers = [float(x) for x in input().split()]
 dict_of_numbers = {}
 
-
 for num in numbers:
     if num not in dict_of_numbers:
         dict_of_numbers[num] = 0
