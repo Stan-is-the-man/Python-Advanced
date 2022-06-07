@@ -1,0 +1,63 @@
+def next_position(direction, row, col):
+    if direction == "up":
+        if row == 0:
+            return row + 5, col
+        else:
+            return row - 1, col
+    if direction == "down":
+        if row == 5:
+            return row - 5, col
+        else:
+            return row + 1, col
+    if direction == "left":
+        if col == 0:
+            return row, col + 5
+        else:
+            return row, col - 1
+    if direction == "right":
+        if col == 5:
+            return row, col - 5
+        else:
+            return row, col + 1
+
+
+size = 6
+matrix = []
+rover_row = 0
+rover_col = 0
+water = 0
+metal = 0
+concrete = 0
+
+for row in range(6):
+    element = input().split()
+    matrix.append(element)
+    for col in range(6):
+        if matrix[row][col] == "E":
+            rover_row, rover_col = row, col
+
+commands = input().split(", ")
+rock_not_found = True
+for current_command in commands:
+    matrix[rover_row][rover_col] = "-"
+    rover_row, rover_col = next_position(current_command, rover_row, rover_col)
+    if matrix[rover_row][rover_col] == "R":
+        print(f"Rover got broken at ({rover_row}, {rover_col})")
+        break
+    if matrix[rover_row][rover_col] == "-":
+        continue
+    if matrix[rover_row][rover_col] == "W":
+        water += 1
+        print(f"Water deposit found at ({rover_row}, {rover_col})")
+    if matrix[rover_row][rover_col] == "M":
+        metal += 1
+        print(f"Metal deposit found at ({rover_row}, {rover_col})")
+    if matrix[rover_row][rover_col] == "C":
+        concrete += 1
+        print(f"Concrete deposit found at ({rover_row}, {rover_col})")
+    matrix[rover_row][rover_col] = "E"
+
+if water > 0 and metal > 0 and concrete > 0:
+    print("Area suitable to start the colony.")
+elif water == 0 or metal == 0 or concrete == 0:
+    print("Area not suitable to start the colony.")
