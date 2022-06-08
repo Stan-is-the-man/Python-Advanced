@@ -1,0 +1,87 @@
+def white_next_step(row, col):
+    return row - 1, col
+
+
+def black_next_step(row, col):
+    return row + 1, col
+
+
+matrix = []
+white_row, white_col = 0, 0
+black_row, black_col = 0, 0
+position_row = {
+    0: "8",
+    1: "7",
+    2: "6",
+    3: "5",
+    4: "4",
+    5: "3",
+    6: "2",
+    7: "1",
+}
+positions_col = {
+    0: "a",
+    1: "b",
+    2: "c",
+    3: "d",
+    4: "e",
+    5: "f",
+    6: "g",
+    7: "h",
+}
+
+for row in range(8):
+    element = input().split()
+    matrix.append(element)
+    for col in range(8):
+        if matrix[row][col] == "w":
+            white_row, white_col = row, col
+        if matrix[row][col] == "b":
+            black_row, black_col = row, col
+
+while True:
+    peek_white_row, peek_white_col = white_next_step(white_row, white_col)
+    if peek_white_row < 0:
+        print(
+            f"Game over! White pawn is promoted to a queen at {''.join((positions_col[white_col], position_row[white_row]))}.")
+        break
+
+    if matrix[white_row - 1][white_col - 1] == "b":
+        matrix[white_row][white_col] = "-"
+        matrix[white_row - 1][white_col - 1] = "b"
+        print(
+            f"Game over! White win, capture on {''.join((positions_col[white_col - 1], position_row[white_row - 1]))}.")
+        break
+    elif matrix[white_row - 1][white_col + 1] == "b":
+        matrix[white_row][white_col] = "-"
+        matrix[white_row - 1][white_col + 1] = "b"
+        print(
+            f"Game over! White win, capture on {''.join((positions_col[white_col + 1], position_row[white_row - 1]))}.")
+        break
+    else:
+        matrix[white_row][white_col] = "-"
+        white_row, white_col = white_next_step(white_row, white_col)
+        matrix[white_row][white_col] = "w"
+
+    peek_black_row, peek_black_col = black_next_step(black_row, black_col)
+    if peek_black_row > 7:
+        print(
+            f"Game over! Black pawn is promoted to a queen at {''.join((positions_col[black_col], position_row[black_row]))}.")
+        break
+
+    if matrix[black_row + 1][black_col - 1] == "w":
+        matrix[black_row][black_col] = "-"
+        matrix[black_row + 1][black_col - 1] = "b"
+        print(
+            f"Game over! Black win, capture on {''.join((positions_col[black_col - 1], position_row[black_row + 1]))}.")
+        break
+    elif matrix[black_row + 1][black_col + 1] == "w":
+        matrix[black_row][black_col] = "-"
+        matrix[black_row + 1][black_col + 1] = "b"
+        print(
+            f"Game over! Black win, capture on {''.join((positions_col[black_col + 1], position_row[black_row + 1]))}.")
+        break
+    else:
+        matrix[black_row][black_col] = "-"
+        black_row, black_col = black_next_step(black_row, black_col)
+        matrix[black_row][black_col] = "b"
