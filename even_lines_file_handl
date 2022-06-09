@@ -1,0 +1,11 @@
+symbols = ["-", ",", ".", "!", "?"]
+
+with open("./text.txt") as file:
+    for index_line, line in enumerate(file):
+        if index_line % 2 == 0:
+            result = line.split()
+            result = " ".join(result[::-1])
+            for symbol in symbols:
+                result = result.replace(symbol, "@")
+            print(result)
+
