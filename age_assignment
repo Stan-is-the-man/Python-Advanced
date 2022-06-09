@@ -6,7 +6,6 @@ def age_assignment(*args, **kwargs):
         result[name] = age
     result = sorted(result.items(), key=lambda x: x[0])
     result = [f"{key} is {value} years old." for key, value in result]
-
     return "\n".join(result)
 
 
