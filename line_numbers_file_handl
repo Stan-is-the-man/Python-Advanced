@@ -1,0 +1,23 @@
+from string import punctuation
+
+
+
+
+
+def count_symbols(line):
+    # return a string with all punctuation symbols in python
+    all_punct_symbols = punctuation
+    letters = 0
+    symbols = 0
+    for symbol in line:
+        if symbol.isalpha():
+            letters += 1
+        elif symbol in all_punct_symbols:
+            symbols += 1
+    return letters, symbols
+
+
+with open("./text.txt", 'r') as input_file, open("./output.txt", "w") as output_file:
+    for index_line, line in enumerate(input_file):
+        letter_quantity, punct_symbols_quantity = count_symbols(line)
+        output_file.write(f"Line {index_line + 1}: {line.strip()} ({letter_quantity})({punct_symbols_quantity})\n")
