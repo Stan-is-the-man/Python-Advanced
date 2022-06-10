@@ -1,0 +1,31 @@
+from os.path import exists
+from os import remove
+
+while True:
+    command = input()
+    if command == "End":
+        break
+    cmd_split = command.split("-")
+    action, file_name = cmd_split[0], cmd_split[1]
+    if action == 'Create':
+        with open(f"./{file_name}", 'w') as file:
+            pass
+    elif action == 'Add':
+        content = cmd_split[2]
+        with open(f"./{file_name}", 'a') as file:
+            file.write(content + '\n')
+    elif action == 'Replace':
+        if not exists(f"./{file_name}"):
+            print("An error occurred")
+            continue
+        old_string, new_string = cmd_split[2], cmd_split[3]
+        with open(f"./{file_name}", 'r+') as file:
+            content_of_the_file = file.read().replace(old_string, new_string)
+            file.seek(0)  # return the pointer at the begining
+            file.truncate()  # removes current content
+            file.write(content_of_the_file)  # replace all content with the new one
+    elif action == 'Delete':
+        if not exists(f"./{file_name}"):
+            print("An error occurred")
+            continue
+        remove(f"./{file_name}")
