@@ -1,0 +1,19 @@
+from os import walk
+
+result_dict = {}
+directory = input()
+for _, _, files in walk(directory):
+    for file in files:
+        only_ext = file.split(directory)[-1]
+        if only_ext not in result_dict:
+            result_dict[only_ext] = []
+        result_dict[only_ext].append(file)
+
+result_dict = sorted(result_dict.items(), key=lambda x: (x[0], x[1]))
+
+with open("report.txt", "w") as output_file:
+    for extension, files in result_dict:
+        output_file.write(f'.{extension}\n')
+        for file in files:
+            output_file.write(f"- - - {file}\n")
+
