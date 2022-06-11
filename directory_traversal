@@ -2,6 +2,7 @@ from os import walk
 
 result_dict = {}
 directory = input()
+# do not use the first 2 parametars
 for _, _, files in walk(directory):
     for file in files:
         only_ext = file.split(directory)[-1]
