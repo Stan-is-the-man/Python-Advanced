@@ -4,6 +4,7 @@ food_quantity = int(input())
 orders = deque([int(x) for x in input().split()])
 orders_are_complete = True
 print(max(orders))
+
 while orders:
     current_order = orders[0]
     if current_order <= food_quantity:
