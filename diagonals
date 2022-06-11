@@ -2,6 +2,7 @@ size = int(input())
 matrix = []
 primary_diagonal = []
 secondary_diagonal = []
+
 for index in range(size):
     line_of_input = [int(x) for x in input().split(", ")]
     primary_diagonal.append(line_of_input[index])
