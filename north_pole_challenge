@@ -1,0 +1,92 @@
+def next_position(direction, row, col, row_size, col_size):
+    if direction == "up":
+        if row == 0:
+            return row + row_size - 1, col
+        else:
+            return row - 1, col
+    if direction == "down":
+        if row == row_size - 1:
+            return row - (row_size - 1), col
+        else:
+            return row + 1, col
+    if direction == "left":
+        if col == 0:
+            return row, col + col_size - 1
+        else:
+            return row, col - 1
+    if direction == "right":
+        if col == col_size - 1:
+            return row, col - (col_size - 1)
+        else:
+            return row, col + 1
+
+
+r_size, c_size = [int(x) for x in input().split(", ")]
+matrix = []
+my_row, my_col = 0, 0
+total_decoration = 0
+total_gifts = 0
+total_cookies = 0
+
+collected_decoration = 0
+collected_gifts = 0
+collected_cookies = 0
+all_items_are_collected = False
+
+for row in range(r_size):
+    element = input().split()
+    matrix.append(element)
+    for col in range(c_size):
+        if matrix[row][col] == 'Y':
+            my_row, my_col = row, col
+        if matrix[row][col] == 'D':
+            total_decoration += 1
+        if matrix[row][col] == 'G':
+            total_gifts += 1
+        if matrix[row][col] == 'C':
+            total_cookies += 1
+
+while True:
+    command = input()
+    if command == "End":
+        break
+
+    cmd_split = command.split("-")
+    direction_to = cmd_split[0]
+    step_by = int(cmd_split[1])
+
+    current_step = step_by
+    while current_step > 0:
+
+        matrix[my_row][my_col] = "x"
+        my_row, my_col = next_position(direction_to, my_row, my_col, r_size, c_size)
+
+        if matrix[my_row][my_col] == '.' or matrix[my_row][my_col] == 'x':
+            matrix[my_row][my_col] = "Y"
+            current_step -= 1
+            continue
+        if matrix[my_row][my_col] == 'D':
+            collected_decoration += 1
+        if matrix[my_row][my_col] == 'G':
+            collected_gifts += 1
+        if matrix[my_row][my_col] == 'C':
+            collected_cookies += 1
+        current_step -= 1
+        matrix[my_row][my_col] = "Y"
+        if total_decoration - collected_decoration == 0 and total_gifts - collected_gifts == 0 \
+                and total_cookies - collected_cookies == 0:
+            all_items_are_collected = True
+            break
+
+    if all_items_are_collected:
+        break
+
+if all_items_are_collected:
+    print("Merry Christmas!")
+print("You've collected:")
+print(f"- {collected_decoration} Christmas decorations")
+print(f"- {collected_gifts} Gifts")
+print(f"- {collected_cookies} Cookies")
+
+for row in matrix:
+    print(*row)
