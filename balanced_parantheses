@@ -4,6 +4,7 @@ opening = '({['
 balanced = True
 
 for symbol in parentheses:
+
     if symbol in opening:
         stack.append(symbol)
     elif len(stack) == 0:
