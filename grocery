@@ -4,6 +4,7 @@ def grocery_store(**kwargs):
     return "\n".join(result)
 
 
+
 print(grocery_store(
     bread=2,
     pasta=2,
