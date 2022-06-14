@@ -6,7 +6,6 @@ def start_spring(**kwargs):
         if value not in spring_objects:
             spring_objects[value] = []
         spring_objects[value].append(key)
-
     sorted_spring_objects = sorted(spring_objects.items(), key=lambda x: (-len(x[1]), x[0]))
     for element in sorted_spring_objects:
         type_object = element[0]
