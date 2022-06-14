@@ -1,0 +1,66 @@
+def naughty_or_nice_list(list_of_names, *args, **kwargs):
+    result = ''
+    nice = []
+    naughty = []
+    not_found = []
+    for el in args:
+        element = el.split("-")
+        arg_number = int(element[0])
+        nice_or_naughty = element[1]
+
+        count = 0
+        name = ""
+        number = 0
+        for current_tuple in list_of_names:
+            tuple_number = current_tuple[0]
+            if tuple_number == arg_number:
+                count += 1
+                name = current_tuple[1]
+                number = current_tuple[0]
+        if count == 1:
+            if nice_or_naughty == "Nice":
+                nice.append(name)
+            else:
+                naughty.append(name)
+            tuple_to_remove = (number, name)
+            list_of_names.remove(tuple_to_remove)
+
+    for name, nice_or_naughty in kwargs.items():
+        counter = 0
+        number_1 = 0
+        for element in list_of_names:
+            if element[1] == str(name):
+                counter += 1
+                number_1 = element[0]
+        if counter == 1:
+            if nice_or_naughty == "Nice":
+                nice.append(name)
+            else:
+                naughty.append(name)
+            tuple_2_to_remove = (number_1, name)
+            list_of_names.remove(tuple_2_to_remove)
+    if list_of_names:
+        for rest_tuples in list_of_names:
+            not_found.append(rest_tuples[1])
+    if nice:
+        result += "Nice: " + ', '.join(nice) + "\n"
+    if naughty:
+        result += "Naughty: " + ", ".join(naughty) + "\n"
+    if not_found:
+        result += "Not found: " + ", ".join(not_found)
+
+    return result
+
+
+print(naughty_or_nice_list(
+    [
+        (3, "Amy"),
+        (1, "Tom"),
+        (7, "George"),
+        (3, "Katy"),
+    ],
+    "3-Nice",
+    "1-Naughty",
+    Amy="Nice",
+    Katy="Naughty",
+))
