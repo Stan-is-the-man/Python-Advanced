@@ -1,0 +1,49 @@
+def next_position(row, col, row_size):
+    if row == row_size - 1:
+        return row - (row_size - 1), col
+    else:
+        return row + 1, col
+
+
+matrix = []
+for row in range(6):
+    elements = input().split()
+    matrix.append(elements)
+
+total_sum = 0
+throw_counter = 0
+
+while True:
+    throw_counter += 1
+    if throw_counter > 3:
+        break
+    coordinates = input()
+    # coord are string, so remove the brackets
+    coordinates = coordinates[1:-1]
+    coor_split = coordinates.split(", ")
+    shot_row = int(coor_split[0])
+    shot_col = int(coor_split[1])
+
+    if shot_row >= 6 or shot_row < 0 or shot_col >=6 or shot_col < 0:
+        continue
+    if matrix[shot_row][shot_col] != "B":
+        continue
+
+    if matrix[shot_row][shot_col] == "B":
+        matrix[shot_row][shot_col] = "0"
+        counter = 0
+        while True:
+            counter += 1
+            if counter > 5:
+                break
+            shot_row, shot_col = next_position(shot_row, shot_col, 6)
+            total_sum += int(matrix[shot_row][shot_col])
+
+if total_sum < 100:
+    print(f"Sorry! You need {100 - total_sum} points more to win a prize.")
+elif 100 <= total_sum <= 199:
+    print(f"Good job! You scored {total_sum} points, and you've won Football.")
+elif 200 <= total_sum <= 299:
+    print(f"Good job! You scored {total_sum} points, and you've won Teddy Bear.")
+elif total_sum >= 300:
+    print(f"Good job! You scored {total_sum} points, and you've won Lego Construction Set.")
