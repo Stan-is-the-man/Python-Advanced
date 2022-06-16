@@ -1,0 +1,100 @@
+from collections import deque
+
+materials = [int(x) for x in input().split()]
+magic = deque([int(x) for x in input().split()])
+
+gemstone = 0
+porcelain_sculpture = 0
+gold = 0
+diamond = 0
+dict_of_gifts = {}
+
+while materials and magic:
+    current_material = materials.pop()
+    current_magic = magic.popleft()
+    result = current_magic + current_material
+
+    if 100 <= result <= 199:
+        gemstone += 1
+        if "Gemstone" not in dict_of_gifts:
+            dict_of_gifts["Gemstone"] = 0
+        dict_of_gifts["Gemstone"] += 1
+    elif 200 <= result <= 299:
+        porcelain_sculpture += 1
+        if "Porcelain Sculpture" not in dict_of_gifts:
+            dict_of_gifts["Porcelain Sculpture"] = 0
+        dict_of_gifts["Porcelain Sculpture"] += 1
+    elif 300 <= result <= 399:
+        gold += 1
+        if "Gold" not in dict_of_gifts:
+            dict_of_gifts["Gold"] = 0
+        dict_of_gifts["Gold"] += 1
+    elif 400 <= result <= 499:
+        diamond += 1
+        if "Diamond Jewellery" not in dict_of_gifts:
+            dict_of_gifts["Diamond Jewellery"] = 0
+        dict_of_gifts["Diamond Jewellery"] += 1
+
+    elif result < 100:
+        if result % 2 == 0:
+            result = (2 * current_material) + (3 * current_magic)
+        else:
+            result = (2 * current_material) + (2 * current_magic)
+        if 100 <= result <= 199:
+            gemstone += 1
+            if "Gemstone" not in dict_of_gifts:
+                dict_of_gifts["Gemstone"] = 0
+            dict_of_gifts["Gemstone"] += 1
+        elif 200 <= result <= 299:
+            porcelain_sculpture += 1
+            if "Porcelain Sculpture" not in dict_of_gifts:
+                dict_of_gifts["Porcelain Sculpture"] = 0
+            dict_of_gifts["Porcelain Sculpture"] += 1
+        elif 300 <= result <= 399:
+            gold += 1
+            if "Gold" not in dict_of_gifts:
+                dict_of_gifts["Gold"] = 0
+            dict_of_gifts["Gold"] += 1
+        elif 400 <= result <= 499:
+            diamond += 1
+            if "Diamond Jewellery" not in dict_of_gifts:
+                dict_of_gifts["Diamond Jewellery"] = 0
+            dict_of_gifts["Diamond Jewellery"] += 1
+
+    elif result > 499:
+        result = (current_material / 2) + (current_magic / 2)
+        if 100 <= result <= 199:
+            gemstone += 1
+            if "Gemstone" not in dict_of_gifts:
+                dict_of_gifts["Gemstone"] = 0
+            dict_of_gifts["Gemstone"] += 1
+        elif 200 <= result <= 299:
+            porcelain_sculpture += 1
+            if "Porcelain Sculpture" not in dict_of_gifts:
+                dict_of_gifts["Porcelain Sculpture"] = 0
+            dict_of_gifts["Porcelain Sculpture"] += 1
+        elif 300 <= result <= 399:
+            gold += 1
+            if "Gold" not in dict_of_gifts:
+                dict_of_gifts["Gold"] = 0
+            dict_of_gifts["Gold"] += 1
+        elif 400 <= result <= 499:
+            diamond += 1
+            if "Diamond Jewellery" not in dict_of_gifts:
+                dict_of_gifts["Diamond Jewellery"] = 0
+            dict_of_gifts["Diamond Jewellery"] += 1
+
+if ((gemstone and porcelain_sculpture) or (gold and diamond)) or (
+        gemstone and porcelain_sculpture and diamond and gold):
+    print("The wedding presents are made!")
+else:
+    print("Aladdin does not have enough wedding presents.")
+
+if materials:
+    print(f"Materials left: {', '.join([str(x) for x in materials])}")
+if magic:
+    print(f"Magic left: {', '.join([str(x) for x in magic])}")
+
+sorted_gifts = sorted(dict_of_gifts.items(), key=lambda x: x[0])
+for gift, value in sorted_gifts:
+    print(f"{gift}: {value}")
