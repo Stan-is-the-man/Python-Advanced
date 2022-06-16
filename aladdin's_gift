@@ -13,7 +13,6 @@ while materials and magic:
     current_material = materials.pop()
     current_magic = magic.popleft()
     result = current_magic + current_material
-
     if 100 <= result <= 199:
         gemstone += 1
         if "Gemstone" not in dict_of_gifts:
