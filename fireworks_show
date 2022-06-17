@@ -1,0 +1,57 @@
+from collections import deque
+
+effects = deque([int(x) for x in input().split(", ")])
+power = [int(x) for x in input().split(", ")]
+
+palm_fw = 0
+willow_fw = 0
+crosette_fw = 0
+
+dict_of_fireworks = {"Palm Fireworks": 0,
+                     "Willow Fireworks": 0,
+                     "Crossette Fireworks": 0
+                     }
+
+while effects and power:
+    if palm_fw >= 3 and willow_fw >= 3 and crosette_fw >= 3:
+        break
+    current_effect = effects.popleft()
+    current_power = power.pop()
+    if current_effect <= 0:
+        power.append(current_power)
+        continue
+    if current_power <= 0:
+        effects.appendleft(current_effect)
+        continue
+    if current_effect <= 0 and current_power <= 0:
+        continue
+
+    the_sum = current_power + current_effect
+
+    if the_sum % 3 == 0 and the_sum % 5 != 0:
+        palm_fw += 1
+        dict_of_fireworks["Palm Fireworks"] += 1
+        continue
+    if the_sum % 3 != 0 and the_sum % 5 == 0:
+        willow_fw += 1
+        dict_of_fireworks["Willow Fireworks"] += 1
+        continue
+    if the_sum % 3 == 0 and the_sum % 5 == 0:
+        crosette_fw += 1
+        dict_of_fireworks["Crossette Fireworks"] += 1
+        continue
+
+    current_effect -= 1
+    effects.append(current_effect)
+    power.append(current_power)
+
+if palm_fw >= 3 and willow_fw >= 3 and crosette_fw >= 3:
+    print("Congrats! You made the perfect firework show!")
+else:
+    print("Sorry. You can't make the perfect firework show.")
+if effects:
+    print(f"Firework Effects left: {', '.join([str(x) for x in effects])}")
+if power:
+    print(f"Explosive Power left: {', '.join([str(x) for x in power])}")
+for type_firework, amount in dict_of_fireworks.items():
+    print(f"{type_firework}: {amount}")
