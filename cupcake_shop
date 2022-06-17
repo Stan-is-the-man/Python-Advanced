@@ -1,0 +1,32 @@
+from collections import deque
+
+
+def stock_availability(products, command, *args):
+    deque_products = deque(products)
+    if command == "delivery":
+        for flavour in args:
+            deque_products.append(flavour)
+
+    else:
+        if args:
+            for element in args:
+                if isinstance(element, int):
+                    for _ in range(element):
+                        deque_products.popleft()
+                elif isinstance(element, str):
+                    if element in deque_products:
+                        deque_products = [x for x in deque_products if x != element]
+        else:
+            deque_products.popleft()
+
+    return list(deque_products)
+
+
+
+print(stock_availability(["choco", "vanilla", "banana"], "delivery", "caramel", "berry"))
+print(stock_availability(["chocolate", "vanilla", "banana"], "delivery", "cookie","banana"))
+print(stock_availability(["chocolate", "vanilla", "banana"], "sell"))
+print(stock_availability(["chocolate", "vanilla", "banana"], "sell", 3))
+print(stock_availability(["chocolate", "chocolate", "banana"], "sell", "chocolate"))
+print(stock_availability(["cookie", "chocolate", "banana"], "sell", "chocolate"))
+print(stock_availability(["chocolate", "vanilla", "banana"], "sell", "cookie"))
