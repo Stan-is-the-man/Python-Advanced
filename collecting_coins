@@ -1,0 +1,66 @@
+import math
+
+
+def next_position(direction, row, col, row_size, col_size):
+    if direction == "up":
+        if row == 0:
+            return row + row_size - 1, col
+        else:
+            return row - 1, col
+    if direction == "down":
+        if row == row_size - 1:
+            return row - (row_size - 1), col
+        else:
+            return row + 1, col
+    if direction == "left":
+        if col == 0:
+            return row, col + col_size - 1
+        else:
+            return row, col - 1
+    if direction == "right":
+        if col == col_size - 1:
+            return row, col - (col_size - 1)
+        else:
+            return row, col + 1
+
+
+size = int(input())
+matrix = []
+player_row, player_col = 0, 0
+coins = 0
+for row in range(size):
+    element = input().split()
+    matrix.append(element)
+    for col in range(size):
+        if matrix[row][col] == "P":
+            player_row, player_col = row, col
+all_commands = ["up", "down", "left", "right"]
+all_paths = [(player_row, player_col)]
+while True:
+    if coins >= 100:
+        break
+    command = input()
+    if command not in all_commands:
+        continue
+    matrix[player_row][player_col] = "0"
+
+    player_row, player_col = next_position(command, player_row, player_col, size, size)
+    if matrix[player_row][player_col] == "X":
+        path = (player_row, player_col)
+        all_paths.append(path)
+        coins /= 2
+        math.floor(coins)
+        break
+    coins += int(matrix[player_row][player_col])
+    path = (player_row, player_col)
+    all_paths.append(path)
+    matrix[player_row][player_col] = "P"
+
+if coins >= 100:
+    print(f"You won! You've collected {coins} coins.")
+else:
+    print(f"Game over! You've collected {math.floor(coins)} coins.")
+if all_paths:
+    print("Your path:")
+    for el in all_paths:
+        print(f"[{el[0]}, {el[1]}]")
