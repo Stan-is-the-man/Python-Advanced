@@ -38,6 +38,7 @@ for row in range(6):
 
 commands = input().split(", ")
 rock_not_found = True
+
 for current_command in commands:
     matrix[rover_row][rover_col] = "-"
     rover_row, rover_col = next_position(current_command, rover_row, rover_col)
