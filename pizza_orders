@@ -1,0 +1,27 @@
+from collections import deque
+
+pizza_orders = deque(int(x) for x in input().split(', '))
+employee_capacity = [int(x) for x in input().split(', ')]
+total_pizza_made = 0
+while pizza_orders and employee_capacity:
+    current_order = pizza_orders.popleft()
+    current_capacity = employee_capacity.pop()
+
+    if current_order > 10 or current_order <= 0:
+        employee_capacity.append(current_capacity)
+        continue
+    if current_order <= current_capacity:
+        total_pizza_made += current_order
+    elif current_order > current_capacity:
+        pizza_orders.appendleft(current_order - current_capacity)
+        total_pizza_made += current_capacity
+
+if not pizza_orders:
+    print("All orders are successfully completed!")
+    print(f"Total pizzas made: {total_pizza_made}")
+    if employee_capacity:
+        print(f"Employees: {', '.join(str(x) for x in employee_capacity)}")
+if not employee_capacity:
+    print("Not all orders are completed.")
+    if pizza_orders:
+        print(f"Orders left: {', '.join(str(x) for x in pizza_orders)}")
