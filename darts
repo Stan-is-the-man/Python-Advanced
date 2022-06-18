@@ -1,0 +1,69 @@
+def sum_the_corresponding_points(a_letter, row, col, the_matrix):
+    total_sum = int(the_matrix[row][0]) + int(the_matrix[row][6]) + int(the_matrix[0][col]) + int(the_matrix[6][col])
+    if a_letter == "D":
+        return total_sum * 2
+    elif a_letter == "T":
+        return total_sum * 3
+
+
+player1, player2 = input().split(', ')
+dict_of_players = {player1: 501, player2: 501}
+player1_throws = 0
+player2_throws = 0
+player_turn = 0
+matrix = []
+for _ in range(7):
+    matrix.append(input().split())
+while True:
+    if dict_of_players[player1] <= 0 or dict_of_players[player2] <= 0:
+        break
+    shot = input()
+    if player_turn % 2 == 0:
+        player1_throws += 1
+        player_turn += 1
+        if len(shot) > 6:
+            continue
+        current_coordinates = shot[1:5]
+        current_coordinates_split = current_coordinates.split(', ')
+        shot_row = int(current_coordinates_split[0])
+        shot_col = int(current_coordinates_split[1])
+        if shot_row < 0 or shot_row > 6 or shot_col < 0 or shot_col > 6:
+            continue
+        if matrix[shot_row][shot_col] == "B":
+            dict_of_players[player1] = 0
+            break
+        if matrix[shot_row][shot_col] == "D":
+            corresponding_points = sum_the_corresponding_points("D", shot_row, shot_col, matrix)
+            dict_of_players[player1] -= corresponding_points
+        if matrix[shot_row][shot_col] == "T":
+            corresponding_points = sum_the_corresponding_points("T", shot_row, shot_col, matrix)
+            dict_of_players[player1] -= corresponding_points
+        if matrix[shot_row][shot_col] != "T" and matrix[shot_row][shot_col] != "D":
+            dict_of_players[player1] -= int(matrix[shot_row][shot_col])
+    else:
+        player_turn += 1
+        player2_throws += 1
+        if len(shot) > 6:
+            continue
+        current_coordinates = shot[1:5]
+        current_coordinates_split = current_coordinates.split(', ')
+        shot_row = int(current_coordinates_split[0])
+        shot_col = int(current_coordinates_split[1])
+        if shot_row < 0 or shot_row > 6 or shot_col < 0 or shot_col > 6:
+            continue
+        if matrix[shot_row][shot_col] == "B":
+            dict_of_players[player2] = 0
+            break
+        if matrix[shot_row][shot_col] == "D":
+            corresponding_points = sum_the_corresponding_points("D", shot_row, shot_col, matrix)
+            dict_of_players[player2] -= corresponding_points
+        if matrix[shot_row][shot_col] == "T":
+            corresponding_points = sum_the_corresponding_points("T", shot_row, shot_col, matrix)
+            dict_of_players[player2] -= corresponding_points
+        if matrix[shot_row][shot_col] != "T" and matrix[shot_row][shot_col] != "D":
+            dict_of_players[player2] -= int(matrix[shot_row][shot_col])
+
+if dict_of_players[player1] <= 0:
+    print(f"{player1} won the game with {player1_throws} throws!")
+if dict_of_players[player2] <= 0:
+    print(f"{player2} won the game with {player2_throws} throws!")
