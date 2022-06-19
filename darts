@@ -11,6 +11,7 @@ players_points = {player1: 501, player2: 501}
 players_throws = {player1: 0, player2: 0}
 player_turn = 0
 matrix = []
+
 for _ in range(7):
     matrix.append(input().split())
 while True:
