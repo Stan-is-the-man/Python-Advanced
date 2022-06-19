@@ -7,63 +7,36 @@ def sum_the_corresponding_points(a_letter, row, col, the_matrix):
 
 
 player1, player2 = input().split(', ')
-dict_of_players = {player1: 501, player2: 501}
-player1_throws = 0
-player2_throws = 0
+players_points = {player1: 501, player2: 501}
+players_throws = {player1: 0, player2: 0}
 player_turn = 0
 matrix = []
 for _ in range(7):
     matrix.append(input().split())
 while True:
-    if dict_of_players[player1] <= 0 or dict_of_players[player2] <= 0:
-        break
+    player = player1 if player_turn % 2 == 0 else player2
     shot = input()
-    if player_turn % 2 == 0:
-        player1_throws += 1
-        player_turn += 1
-        if len(shot) > 6:
-            continue
-        current_coordinates = shot[1:5]
-        current_coordinates_split = current_coordinates.split(', ')
-        shot_row = int(current_coordinates_split[0])
-        shot_col = int(current_coordinates_split[1])
-        if shot_row < 0 or shot_row > 6 or shot_col < 0 or shot_col > 6:
-            continue
-        if matrix[shot_row][shot_col] == "B":
-            dict_of_players[player1] = 0
-            break
-        if matrix[shot_row][shot_col] == "D":
-            corresponding_points = sum_the_corresponding_points("D", shot_row, shot_col, matrix)
-            dict_of_players[player1] -= corresponding_points
-        if matrix[shot_row][shot_col] == "T":
-            corresponding_points = sum_the_corresponding_points("T", shot_row, shot_col, matrix)
-            dict_of_players[player1] -= corresponding_points
-        if matrix[shot_row][shot_col] != "T" and matrix[shot_row][shot_col] != "D":
-            dict_of_players[player1] -= int(matrix[shot_row][shot_col])
-    else:
-        player_turn += 1
-        player2_throws += 1
-        if len(shot) > 6:
-            continue
-        current_coordinates = shot[1:5]
-        current_coordinates_split = current_coordinates.split(', ')
-        shot_row = int(current_coordinates_split[0])
-        shot_col = int(current_coordinates_split[1])
-        if shot_row < 0 or shot_row > 6 or shot_col < 0 or shot_col > 6:
-            continue
-        if matrix[shot_row][shot_col] == "B":
-            dict_of_players[player2] = 0
-            break
-        if matrix[shot_row][shot_col] == "D":
-            corresponding_points = sum_the_corresponding_points("D", shot_row, shot_col, matrix)
-            dict_of_players[player2] -= corresponding_points
-        if matrix[shot_row][shot_col] == "T":
-            corresponding_points = sum_the_corresponding_points("T", shot_row, shot_col, matrix)
-            dict_of_players[player2] -= corresponding_points
-        if matrix[shot_row][shot_col] != "T" and matrix[shot_row][shot_col] != "D":
-            dict_of_players[player2] -= int(matrix[shot_row][shot_col])
-
-if dict_of_players[player1] <= 0:
-    print(f"{player1} won the game with {player1_throws} throws!")
-if dict_of_players[player2] <= 0:
-    print(f"{player2} won the game with {player2_throws} throws!")
+    players_throws[player] += 1
+    player_turn += 1
+    if len(shot) > 6:
+        continue
+    current_coordinates = shot[1:5]
+    current_coordinates = current_coordinates.split(', ')
+    shot_row, shot_col = int(current_coordinates[0]), int(current_coordinates[1])
+    if shot_row < 0 or shot_row > 6 or shot_col < 0 or shot_col > 6:
+        continue
+    if matrix[shot_row][shot_col] == "B":
+        players_points[player] = 0
+        print(f"{player} won the game with {players_throws[player]} throws!")
+        break
+    if matrix[shot_row][shot_col] == "D":
+        corresponding_points = sum_the_corresponding_points("D", shot_row, shot_col, matrix)
+        players_points[player] -= corresponding_points
+    if matrix[shot_row][shot_col] == "T":
+        corresponding_points = sum_the_corresponding_points("T", shot_row, shot_col, matrix)
+        players_points[player] -= corresponding_points
+    if matrix[shot_row][shot_col] != "T" and matrix[shot_row][shot_col] != "D":
+        players_points[player] -= int(matrix[shot_row][shot_col])
+    if players_points[player] <= 0:
+        print(f"{player} won the game with {players_throws[player]} throws!")
+        break
