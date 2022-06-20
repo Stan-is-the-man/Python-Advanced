@@ -1,0 +1,18 @@
+def get_magic_triangle(n):
+    triangle = [[1], [1, 1]]
+    while n > 2:
+        n -= 1
+        next = list()
+        last_list = triangle[-1]
+        last_list_len = len(triangle[-1])
+        next.append(1)
+        for index in range(last_list_len - 1):
+            current_num = last_list[index] + last_list[index + 1]
+            next.append(current_num)
+        next.append(1)
+        triangle.append(next)
+    return triangle
+
+
+print(get_magic_triangle(5))
+
