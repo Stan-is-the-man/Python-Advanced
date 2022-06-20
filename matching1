@@ -1,0 +1,49 @@
+from collections import deque
+
+male = [int(x) for x in input().split()]
+female = deque(int(x) for x in input().split())
+successful_matches = 0
+while male and female:
+    male_on_turn = male.pop()
+    female_on_turn = female.popleft()
+
+    if male_on_turn <= 0 and female_on_turn <= 0:
+        continue
+    if male_on_turn <= 0:
+        female.appendleft(female_on_turn)
+        continue
+    if female_on_turn <= 0:
+        male.append(male_on_turn)
+        continue
+    if male_on_turn % 25 == 0 and female_on_turn % 25 == 0:
+        if male_on_turn == female_on_turn:
+            successful_matches += 1
+        next_male = male.pop()
+        next_female = female.popleft()
+        if next_male == next_female:
+            successful_matches += 1
+        continue
+    if male_on_turn % 25 == 0:
+        male.pop()
+        female.appendleft(female_on_turn)
+        continue
+    if female_on_turn % 25 == 0:
+        female.popleft()
+        male.append(male_on_turn)
+        continue
+    if male_on_turn == female_on_turn:
+        successful_matches += 1
+        continue
+    if male_on_turn != female_on_turn:
+        male.append(male_on_turn - 2)
+
+print(f"Matches: {successful_matches}")
+if male:
+    reversed_male = reversed(male)
+    print(f"Males left: {', '.join(str(x) for x in reversed_male)}")
+else:
+    print("Males left: none")
+if female:
+    print(f"Females left: {', '.join(str(x) for x in female)}")
+else:
+    print("Females left: none")
