@@ -1,0 +1,41 @@
+def next_position(direction, row, col):
+    if direction == "up":
+        return row - 1, col
+    if direction == "down":
+        return row + 1, col
+    if direction == "left":
+        return row, col - 1
+    if direction == "right":
+        return row, col + 1
+
+
+word = input()
+size = int(input())
+matrix = []
+player_row, player_index = 0, 0
+for row in range(size):
+    element = input()
+    # input is string, so make it list of separate string
+    matrix.append(list(element))
+    for index in range(len(element)):
+        if matrix[row][index] == "P":
+            player_row, player_index = row, index
+
+number_of_commands = int(input())
+
+for turn in range(number_of_commands):
+    command = input()
+    peek_player_row, peek_player_index = next_position(command, player_row, player_index)
+    if peek_player_row < 0 or peek_player_row >= size or peek_player_index < 0 or peek_player_index >= size:
+        if word:
+            word = word[:-1]
+        continue
+    if matrix[peek_player_row][peek_player_index] != "-":
+        word += matrix[peek_player_row][peek_player_index]
+    matrix[peek_player_row][peek_player_index] = "P"
+    matrix[player_row][player_index] = "-"
+    player_row, player_index = peek_player_row, peek_player_index
+
+print(word)
+for row in matrix:
+    print(*row, sep="")
