@@ -1,0 +1,36 @@
+from collections import deque
+
+vowels = deque(input().split())
+consonants = (input().split())
+
+flowers_dict = {"rose": "rose",
+                "tulip": "tulip",
+                "lotus": "lotus",
+                "daffodil": "daffodil"}
+word_is_not_found = True
+while vowels and consonants:
+    vowels_pop = vowels.popleft()
+    consonants_pop = consonants.pop()
+    for key, value in flowers_dict.items():
+        if vowels_pop in value:
+            value = value.replace(vowels_pop, "")
+            flowers_dict[key] = value
+        if len(value) == 0:
+            print(f"Word found: {key}")
+            word_is_not_found = False
+            break
+        if consonants_pop in value:
+            value = value.replace(consonants_pop, "")
+            flowers_dict[key] = value
+        if len(value) == 0:
+            print(f"Word found: {key}")
+            word_is_not_found = False
+            break
+    if not word_is_not_found:
+        break
+if word_is_not_found:
+    print("Cannot find any word!")
+if vowels:
+    print(f"Vowels left: {' '.join(vowels)}")
+if consonants:
+    print(f"Consonants left: {' '.join(consonants)}")
