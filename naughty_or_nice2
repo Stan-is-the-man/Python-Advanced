@@ -1,0 +1,67 @@
+def naughty_or_nice_list(list_of_kids, *args, **kwargs):
+    nice = []
+    naughty = []
+    not_found = []
+    result = ''
+    for element in args:
+        arg_number, arg_description = element.split('-')
+        arg_number = int(arg_number)
+        same_number = 0
+        name_to_append = None
+        for list_number, list_name in list_of_kids:
+            if arg_number == list_number:
+                same_number += 1
+                name_to_append = list_name
+        if same_number == 1 and arg_description == "Nice":
+            nice.append(name_to_append)
+            list_of_kids.remove((arg_number, name_to_append))
+        elif same_number == 1 and arg_description == "Naughty":
+            naughty.append(name_to_append)
+            list_of_kids.remove((arg_number, name_to_append))
+
+    for kwarg_name, kwarg_description in kwargs.items():
+        same_name = 0
+        name_to_append = None
+        tuple_num = None
+        for list_number, list_name in list_of_kids:
+            if kwarg_name == list_name:
+                same_name += 1
+                name_to_append = list_name
+                tuple_num = list_number
+        if same_name == 1 and kwarg_description == "Nice":
+            nice.append(name_to_append)
+            list_of_kids.remove((tuple_num, kwarg_name))
+        elif same_name == 1 and kwarg_description == "Naughty":
+            naughty.append(name_to_append)
+            list_of_kids.remove((tuple_num, kwarg_name))
+    if list_of_kids:
+        for num, name in list_of_kids:
+            not_found.append(name)
+    if nice:
+        result += f"Nice: {', '.join(nice)}\n"
+    if naughty:
+        result += f"Naughty: {', '.join(naughty)}\n"
+    if not_found:
+        result += f"Not found: {', '.join(not_found)}\n"
+    return result
+
+
+
+print(naughty_or_nice_list(
+    [
+        (3, "Amy"),
+        (1, "Tom"),
+        (7, "George"),
+        (3, "Katy"),
+    ],
+    "3-Nice",
+    "1-Naughty",
+    Amy="Nice",
+    Katy="Naughty",
+))
+
+
+
+
+
+
