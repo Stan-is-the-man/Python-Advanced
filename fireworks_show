@@ -49,6 +49,7 @@ if palm_fw >= 3 and willow_fw >= 3 and crosette_fw >= 3:
     print("Congrats! You made the perfect firework show!")
 else:
     print("Sorry. You can't make the perfect firework show.")
+    
 if effects:
     print(f"Firework Effects left: {', '.join([str(x) for x in effects])}")
 if power:
