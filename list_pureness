@@ -1,0 +1,55 @@
+from collections import deque
+
+
+def best_list_pureness(list_of_numbers, count):
+    my_deque = deque(list_of_numbers)
+    best_pureness = 0
+    best_rotation = 0
+    counter = 0
+
+    while counter <= count:
+        current_sum = 0
+        for index, value in enumerate(my_deque):
+            current_sum += (index * value)
+        if current_sum > best_pureness:
+            best_pureness = current_sum
+            best_rotation = counter
+        last_num = my_deque.pop()
+        my_deque.appendleft(last_num)
+        counter += 1
+    return f"Best pureness {best_pureness} after {best_rotation} rotations"
+
+
+test = ([4, 3, 2, 6], 0)
+result = best_list_pureness(*test)
+print(result)
+
+#60/100
+# from collections import deque
+#
+#
+# def best_list_pureness(list_of_numbers, count):
+#     my_deque = deque(list_of_numbers)
+#     best_pureness = 0
+#     best_rotation = 0
+#     if count <= 0:
+#         for index, value in enumerate(my_deque):
+#             best_pureness += (index * value)
+#         return f"Best pureness {best_pureness} after 0 rotations"
+#
+#     for rotation in range(count):
+#         current_sum = 0
+#         for index, value in enumerate(my_deque):
+#             current_sum += (index * value)
+#         if current_sum > best_pureness:
+#             best_pureness = current_sum
+#             best_rotation = rotation
+#         last_num = my_deque.pop()
+#         my_deque.appendleft(last_num)
+#     return f"Best pureness {best_pureness} after {best_rotation} rotations"
+#
+#
+# test = ([4, 3, 2, 6], 4)
+# result = best_list_pureness(*test)
+# print(result)
+#
