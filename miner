@@ -60,6 +60,7 @@ for action in movements:
             break
     start_row = current_row
     start_col = current_col
+    
 
 if game_is_over:
     print(f"Game over! ({current_row}, {current_col})")
