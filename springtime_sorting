@@ -1,0 +1,24 @@
+def start_spring(**kwargs):
+    new_dict = {}
+    result = ''
+    for object, type in kwargs.items():
+        if type not in new_dict:
+            new_dict[type] = []
+        new_dict[type].append(object)
+    new_dict = sorted(new_dict.items(), key=lambda x: (-len(x[1]), x[0]))
+    for type, values in new_dict:
+        result += f"{type}:\n"
+        values = sorted(values)
+        for x in values:
+            result += f"-{x}\n"
+    return result
+
+
+example_objects = {"Magnolia": "tree",
+                   "Swallow": "bird",
+                   "Thrushes": "bird",
+                   "Pear": "tree",
+                   "Cherries": "tree",
+                   "Shrikes": "bird",
+                   "Butterfly": "insect"}
+print(start_spring(**example_objects))
