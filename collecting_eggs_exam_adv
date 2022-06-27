@@ -1,0 +1,32 @@
+from collections import deque
+
+eggs = deque(int(x) for x in input().split(", "))
+paper = deque(int(x) for x in input().split(", "))
+boxes_filled = 0
+
+while eggs and paper:
+
+    current_egg = eggs.popleft()
+    current_paper = paper.pop()
+
+    if current_egg <= 0:
+        paper.append(current_paper)
+        continue
+    if current_egg == 13:
+        first_paper = paper.popleft()
+        paper.appendleft(current_paper)
+        paper.append(first_paper)
+        continue
+    if current_egg + current_paper <= 50:
+        boxes_filled += 1
+    else:
+        pass
+
+if boxes_filled >= 1:
+    print(f"Great! You filled {boxes_filled} boxes.")
+else:
+    print("Sorry! You couldn't fill any boxes!")
+if eggs:
+    print(f"Eggs left: {', '.join(str(x) for x in eggs)}")
+if paper:
+    print(f"Pieces of paper left: {', '.join(str(x) for x in paper)}")
