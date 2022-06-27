@@ -1,0 +1,36 @@
+def shopping_cart(*args):
+    dict_of_meals = {"Soup": [], "Pizza": [], "Dessert": []}
+    dict_of_current_value = {"Soup": 0, "Pizza": 0, "Dessert": 0}
+    dict_of_limits = {"Soup": 3, "Pizza": 4, "Dessert": 2}
+    result = ""
+    for element in args:
+        if element == "Stop":
+            break
+        meal = element[0]
+        product = element[1]
+        if product not in dict_of_meals[meal] and dict_of_current_value[meal] < dict_of_limits[meal]:
+            dict_of_meals[meal].append(product)
+            dict_of_current_value[meal] += 1
+
+    dict_of_meals = sorted(dict_of_meals.items(), key=lambda x: (-len(x[1]), x[0]))
+
+    for type, values in dict_of_meals:
+        result += f"{type}:\n"
+        values = sorted(values)
+        for x in values:
+            result += f" - {x}\n"
+
+    if dict_of_current_value["Soup"] > 0 or dict_of_current_value["Pizza"] > 0 or dict_of_current_value[
+        "Dessert"] > 0:
+        return result
+    elif result == "Dessert:\nPizza:\nSoup:\n":
+        return "No products in the cart!"
+
+
+print(shopping_cart(
+    'Stop',
+    ('Pizza', 'ham'),
+    ('Pizza', 'mushrooms'),
+))
+
+
