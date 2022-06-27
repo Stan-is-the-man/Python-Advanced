@@ -1,0 +1,65 @@
+player1, player2 = input().split(", ")
+matrix = []
+turn_counter = 0
+
+for _ in range(6):
+    matrix.append(input().split())
+
+to_rest_dict = {player1: 0, player2: 0}
+game_is_not_win = False
+while True:
+    coordinates = input().strip("(").strip(")")
+    split = coordinates.split(', ')
+    pl_row = int(split[0])
+    pl_col = int(split[1])
+    player = player1 if turn_counter % 2 == 0 else player2
+    other_player = player2 if turn_counter % 2 == 0 else player1
+
+    if to_rest_dict[player] == 0:
+        if matrix[pl_row][pl_col] == ".":
+            turn_counter += 1
+            continue
+        if matrix[pl_row][pl_col] == "W":
+            print(f"{player} hits a wall and needs to rest.")
+            to_rest_dict[player] = 1
+            turn_counter += 1
+            continue
+        if matrix[pl_row][pl_col] == "E":
+            print(f"{player} found the Exit and wins the game!")
+            game_is_not_win = True
+            break
+        if game_is_not_win:
+            break
+        if matrix[pl_row][pl_col] == "T":
+            print(f"{player} is out of the game! The winner is {other_player}.")
+            game_is_not_win = True
+            break
+        if game_is_not_win:
+            break
+    else:
+        to_rest_dict[player] = 0
+        turn_counter -= 1
+        player = player1 if turn_counter % 2 == 0 else player2
+        other_player = player2 if turn_counter % 2 == 0 else player1
+        if to_rest_dict[player] == 1:
+            to_rest_dict[player] = 0
+            turn_counter += 1
+            continue
+        if matrix[pl_row][pl_col] == ".":
+            continue
+        if matrix[pl_row][pl_col] == "W":
+            print(f"{player} hits a wall and needs to rest.")
+            to_rest_dict[player] = 1
+            continue
+        if matrix[pl_row][pl_col] == "E":
+            print(f"{player} found the Exit and wins the game!")
+            game_is_not_win = True
+            break
+        if game_is_not_win:
+            break
+        if matrix[pl_row][pl_col] == "T":
+            print(f"{player} is out of the game! The winner is {other_player}.")
+            game_is_not_win = True
+            break
+        if game_is_not_win:
+            break
