@@ -34,6 +34,7 @@ movement_dict = {
     'left': move_left,
     'right': move_right,
 }
+
 best_sum = - sys.maxsize
 best_direction = ''
 best_path = []
