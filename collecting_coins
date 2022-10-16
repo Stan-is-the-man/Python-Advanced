@@ -28,6 +28,7 @@ size = int(input())
 matrix = []
 player_row, player_col = 0, 0
 coins = 0
+
 for row in range(size):
     element = input().split()
     matrix.append(element)
