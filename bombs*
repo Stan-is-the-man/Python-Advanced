@@ -8,6 +8,7 @@ for current_position in coordinates:
     split = current_position.split(",")
     row = int(split[0])
     col = int(split[1])
+    
     if matrix[row][col] > 0 and 0 <= row < rows and 0 <= col < rows:
         bomb_power = matrix[row][col]
         matrix[row][col] = 0
