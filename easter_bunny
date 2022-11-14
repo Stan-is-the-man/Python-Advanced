@@ -21,6 +21,7 @@ size = int(input())
 matrix = []
 start_row = 0
 start_col = 0
+
 for _ in range(size):
     matrix.append(input().split())
 for x in range(size):
